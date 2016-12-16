@@ -147,7 +147,6 @@
 	function openConfirm(msg) {
 		if (confirmDialog.style.display != "block") {
 			confirmDialog.style.display = "block";
-			document.body.className = "confirm-modal-open";
 			getElementByRel("js-confirm-msg",confirmDialog).innerHTML = msg;
 		}
 	}
@@ -155,7 +154,6 @@
 	function closeConfirm() {
 		if (confirmDialog.style.display == "block") {
 			confirmDialog.style.display = "none";
-			document.body.className = "confirm-modal-closed";
 			getElementByRel("js-confirm-msg",confirmDialog).innerHTML = "";
 		}
 	}
@@ -280,6 +278,8 @@
 	}
 
 	function numberPadPressed(evt) {
+		stopEvent(evt);
+
 		var btn = evt.target;
 		var rel = btn.getAttribute("rel");
 

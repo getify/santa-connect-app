@@ -8,6 +8,7 @@
 }
 
 html {
+	touch-action: none;
 	box-sizing: border-box;
 	margin: 0px;
 	padding: 0px;
@@ -17,8 +18,10 @@ html {
 	box-sizing: inherit;
 	-moz-user-select: none;
 	-webkit-user-select: none;
-	cursor: pointer;
+	cursor: default;
 	font-family: sans-serif;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -29,9 +32,13 @@ html, body {
 	background-color: #3c8d0d;
 }
 
+input, button, button * {
+	cursor: pointer;
+}
+
 button {
 	border: 0px;
-	outline: 0px;
+	outline: none;
 	background-color: transparent;
 }
 
@@ -61,10 +68,6 @@ body > h1 {
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;
-}
-
-body.confirm-modal-closed #selected-child:active {
-	background-color: #ddd;
 }
 
 #selected-child > #child-name {
@@ -118,10 +121,6 @@ body.confirm-modal-closed #selected-child:active {
 	margin-bottom: 0.5em;
 }
 
-#child-picker > button.child-choice:active {
-	background-color: #ddd;
-}
-
 #child-picker > #new-child {
 	display: none;
 	background-color: #fff;
@@ -154,10 +153,6 @@ body.confirm-modal-closed #selected-child:active {
 	border: 2px solid #3c8d0d;
 	overflow: hidden;
 	vertical-align: top;
-}
-
-#child-picker > #add-child:active {
-	background-color: #ddd;
 }
 
 #goodness-scale {
@@ -234,11 +229,6 @@ body.confirm-modal-closed #selected-child:active {
 	z-index: 10;
 }
 
-body.confirm-modal-closed #nice:active,
-body.confirm-modal-closed #naughty:active {
-	background-color: #ddd;
-}
-
 #nice {
 	top: 0px;
 }
@@ -272,10 +262,6 @@ body.confirm-modal-closed #naughty:active {
 	vertical-align: top;
 }
 
-body.confirm-modal-closed #menu-icon:active {
-	color: #ddd;
-}
-
 #menu {
 	display: none;
 	position: fixed;
@@ -295,10 +281,6 @@ body.confirm-modal-closed #menu-icon:active {
 	font-size: 1.5em;
 	color: #3c8d0d;
 	padding: 0.3em;
-}
-
-#menu > button:active {
-	background-color: #ddd;
 }
 
 #menu > #reset {
@@ -345,12 +327,7 @@ body.confirm-modal-closed #menu-icon:active {
 	margin-right: 0px;
 }
 
-#confirm-dialog > button:active {
-	background-color: #ddd;
-}
-
 #login {
-	display: none;
 	font-size: 1vw;
 	position: fixed;
 	width: 100%;
@@ -396,10 +373,6 @@ body.confirm-modal-closed #menu-icon:active {
 	border: 2px solid #3c8d0d;
 	overflow: hidden;
 	vertical-align: top;
-}
-
-body.confirm-modal-closed #number-pad > button:active {
-	background-color: #ddd;
 }
 
 #number-pad > button:disabled {
