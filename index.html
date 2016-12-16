@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Santa Connect</title>
+<link rel="stylesheet" href="santa.css">
+</head>
+<body class="confirm-modal-closed">
+
+<h1>&#x1f384; Santa Connect</h1>
+
+<div id="child">
+	<button id="selected-child" rel="js-selected-child">
+		<span id="child-name" rel="js-child-name">&mdash; your child &mdash;</span><span id="drop-arrow">▼</span>
+	</button>
+
+	<div id="child-picker" rel="js-child-picker">
+		<div id="new-child" rel="js-new-child"><input type="text"></div>
+		<button id="add-child" rel="js-add-child">+</button>
+	</div>
+</div>
+
+<div id="goodness-scale" rel="js-goodness-scale">
+	<div id="meter">
+		<div id="meter-tab" class="p100" rel="js-meter-tab"></div>
+	</div>
+	<button id="nice" rel="js-nice-btn">+ NICE</button>
+	<button id="naughty" rel="js-naughty-btn">- NAUGHTY</button>
+
+	<div id="child-status" rel="js-child-status">Naughty</div>
+</div>
+
+<button id="menu-icon" rel="js-menu-icon">&#x2630;</button>
+
+<div id="menu" rel="js-menu">
+	<button rel="js-menu-logout">◀ Logout</button>
+	<button id="reset" rel="js-menu-reset">⟁ Clear</button>
+</div>
+
+<div id="confirm-dialog" rel="js-confirm-dialog">
+	<p rel="js-confirm-msg"></p>
+	<button rel="js-confirm-no">No</button><button id="confirm-yes" rel="js-confirm-yes">Yes</button>
+</div>
+
+<div id="login" rel="js-login-modal">
+	<div id="login-modal">
+		<h2>Parent Code</h2>
+		<div id="PIN">
+			<span rel="js-digit-1"></span><span rel="js-digit-2"></span><span rel="js-digit-3"></span><span id="digit-4" rel="js-digit-4"></span>
+		</div>
+		<div id="number-pad" rel="js-number-pad">
+			<button rel="js-pad-1">1</button><button rel="js-pad-2">2</button><button id="pad-3" rel="js-pad-3">3</button><button rel="js-pad-4">4</button><button rel="js-pad-5">5</button><button id="pad-6" rel="js-pad-6">6</button><button rel="js-pad-7">7</button><button rel="js-pad-8">8</button><button id="pad-9" rel="js-pad-9">9</button><button id="pad-cancel" rel="js-pad-cancel" disabled>Clear</button><button id="pad-0" rel="js-pad-0">0</button><button id="pad-submit" rel="js-pad-submit" disabled>Set Code</button>
+		</div>
+	</div>
+</div>
+
+<script src="santa.js"></script>
+</body>
+</html>
