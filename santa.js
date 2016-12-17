@@ -1,4 +1,5 @@
 (function SantaConnect(){
+	"use strict";
 
 	var menuIcon;
 	var menu;
@@ -7,6 +8,7 @@
 	var selectedChild;
 	var childName;
 	var childPicker;
+	var childOptions;
 	var newChild;
 	var addChild;
 	var goodnessScale;
@@ -14,6 +16,7 @@
 	var niceButton;
 	var naughtyButton;
 	var childStatus;
+	var loginBackground;
 	var loginModal;
 	var PINdigits;
 	var numberPad;
@@ -49,13 +52,15 @@
 		selectedChild = getElementByRel("js-selected-child");
 		childName = getElementByRel("js-child-name");
 		childPicker = getElementByRel("js-child-picker");
+		childOptions = getElementByRel("js-child-options");
 		newChild = getElementByRel("js-new-child");
-		addChild = getElementByRel("js-add-child");
+		addChild = getElementByRel("js-add-child-btn");
 		goodnessScale = getElementByRel("js-goodness-scale");
 		meterTab = getElementByRel("js-meter-tab");
 		niceButton = getElementByRel("js-nice-btn");
 		naughtyButton = getElementByRel("js-naughty-btn");
 		childStatus = getElementByRel("js-child-status");
+		loginBackground = getElementByRel("js-login");
 		loginModal = getElementByRel("js-login-modal");
 		PINdigits = [
 			getElementByRel("js-digit-1"),
@@ -106,15 +111,16 @@
 		}
 
 		// setup events
+		numberPad.addEventListener("click",numberPadPressed,false);
 		menuIcon.addEventListener("click",openMenu,false);
 		menu.addEventListener("click",stopEvent,false);
 		menuLogout.addEventListener("click",logout,false);
 		menuReset.addEventListener("click",resetPressed,false);
 		selectedChild.addEventListener("click",openChildPicker,false);
-		childPicker.addEventListener("click",childPressed,false);
-		numberPad.addEventListener("click",numberPadPressed,false);
+		childOptions.addEventListener("click",childPressed,false);
+		childPicker.addEventListener("click",stopEvent,false);
 		addChild.addEventListener("click",addChildPressed,false);
-		newChild.children[0].addEventListener("keypress",enterPressed,false);
+		newChild.children[0].addEventListener("keypress",newNameKeyPressed,false);
 		niceButton.addEventListener("click",nicePressed,false);
 		naughtyButton.addEventListener("click",naughtyPressed,false);
 	}
@@ -130,7 +136,7 @@
 	}
 
 	function closeMenu(evt) {
-		if (menu.style.display == "block") {
+		if (menu.style.display != "none") {
 			stopEvent(evt);
 			menu.style.display = "none";
 			document.removeEventListener("click",closeMenu,false);
@@ -139,8 +145,9 @@
 
 	function logout(evt) {
 		stopEvent(evt);
-		resetChildPicker();
 		setSessionData("PIN","");
+		resetSelectedChild();
+		updateGoodness();
 		openLogin();
 	}
 
@@ -152,7 +159,7 @@
 	}
 
 	function closeConfirm() {
-		if (confirmDialog.style.display == "block") {
+		if (confirmDialog.style.display != "none") {
 			confirmDialog.style.display = "none";
 			getElementByRel("js-confirm-msg",confirmDialog).innerHTML = "";
 		}
@@ -212,24 +219,15 @@
 		selectedChild.removeAttribute("data-child");
 		childName.innerHTML = "&mdash; your child &mdash;";
 
-		// remove child-picker entries
-		while (childPicker.children.length > 0) {
-			var rel = childPicker.children[0].getAttribute("rel");
-
-			// found a child-picker entry to remove?
-			if (rel == "js-child-choice") {
-				childPicker.removeChild(childPicker.children[0]);
-			}
-			// all child-picker entries gone now?
-			else if (rel == "js-new-child") {
-				break;
-			}
+		// remove child-picker options
+		while (childOptions.children.length > 0) {
+			childOptions.removeChild(childOptions.firstChild);
 		}
 
 		updateGoodness();
 	}
 
-	function resetChildPicker() {
+	function resetSelectedChild() {
 		if (userData.children) {
 			selectedChild.setAttribute("data-child",userData.children.length-1);
 			childName.innerHTML = userData.children[userData.children.length-1].name;
@@ -238,7 +236,6 @@
 			selectedChild.removeAttribute("data-child");
 			childName.innerHTML = "&mdash; your child &mdash;";
 		}
-		updateGoodness();
 	}
 
 	function openChildPicker(evt) {
@@ -248,33 +245,47 @@
 			stopEvent(evt);
 			childPicker.style.display = "block";
 			document.addEventListener("click",closeChildPicker,false);
+
+			// need to show the existing child options?
+			if (userData.children && userData.children.length > 0) {
+				childOptions.style.display = "block";
+
+				// reset add-child
+				resetAddChild();
+			}
+			// otherwise, hide options container
+			else {
+				childOptions.style.display = "none";
+
+				// start add-child flow by default
+				startAddChild();
+			}
 		}
 	}
 
 	function closeChildPicker(evt) {
 		if (childPicker.style.display == "block") {
 			stopEvent(evt);
-			resetAddChild();
+			if (userData.children && userData.children.length > 0) {
+				resetAddChild();
+			}
 			childPicker.style.display = "none";
+			newChild.children[0].blur();
 			document.removeEventListener("click",closeChildPicker,false);
 		}
 	}
 
 	function openLogin(evt) {
+		stopEvent(evt);
 		closeMenu();
 		closeChildPicker();
-
-		if (loginModal.style.display != "block") {
-			stopEvent(evt);
-			loginModal.style.display = "block";
-		}
+		loginBackground.style.display = "block";
+		loginModal.style.display = "block";
 	}
 
 	function closeLogin(evt) {
-		if (loginModal.style.display == "block") {
-			stopEvent(evt);
-			loginModal.style.display = "none";
-		}
+		stopEvent(evt);
+		loginBackground.style.display = "none";
 	}
 
 	function numberPadPressed(evt) {
@@ -338,9 +349,17 @@
 	}
 
 	function resetAddChild() {
+		newChild.style.display = "none";
 		newChild.children[0].value = "";
 		addChild.innerHTML = "+";
-		newChild.style.display = "none";
+		newChild.children[0].blur();
+	}
+
+	function startAddChild() {
+		newChild.style.display = "block";
+		newChild.children[0].value = "";
+		addChild.innerHTML = "✓";
+		newChild.children[0].focus();
 	}
 
 	function updateGoodness() {
@@ -355,7 +374,7 @@
 
 			goodnessScale.style.display = "block";
 
-			childScore = Number(userData.children[child].score);
+			var childScore = Number(userData.children[child].score);
 
 			if (!(childScore >= 0) || childScore % 20 != 0) {
 				childScore = 100;
@@ -386,18 +405,18 @@
 
 	function addChildName(name,index) {
 		var childBtn = document.createElement("button");
-		childBtn.className = "child-choice";
-		childBtn.setAttribute("rel","js-child-choice");
+		childBtn.className = "child-option";
+		childBtn.setAttribute("rel","js-child-option");
 		childBtn.setAttribute("data-index",String(index));
 		childBtn.innerHTML = name;
-		childPicker.insertBefore(childBtn,childPicker.children[0]);
+		childOptions.insertBefore(childBtn,childOptions.firstChild);
 	}
 
 	function childPressed(evt) {
 		stopEvent(evt);
 		var rel = evt.target.getAttribute("rel");
 
-		if (/\bjs-child-choice\b/.test(rel)) {
+		if (/\bjs-child-option\b/.test(rel)) {
 			var index = evt.target.getAttribute("data-index");
 			pickChild(index);
 			closeChildPicker();
@@ -414,9 +433,10 @@
 		childName.innerHTML = userData.children[index].name;
 	}
 
-	function enterPressed(evt) {
+	function newNameKeyPressed(evt) {
 		// enter pressed?
 		if (evt.charCode == 13) {
+			stopEvent(evt);
 			addChildPressed(evt);
 		}
 	}
@@ -425,29 +445,31 @@
 		stopEvent(evt);
 
 		// already entering child's name?
-		if (newChild.style.display == "block") {
+		if (newChild.style.display != "none") {
 			if (!userData.children) {
 				userData.children = [];
 			}
 
 			var name = newChild.children[0].value;
-			name = name.replace(/[^a-zA-Z0-9\s\.'"]+/,"").substr(0,15);
-			userData.children.push({ name: name, score: 100 });
+			name = name.replace(/[^a-zA-Z0-9\s\.'"]+/,"").substr(0,20).toUpperCase();
+			if (name.length > 0) {
+				userData.children.push({ name: name, score: 100 });
 
-			// at limit of kids?
-			if (userData.children.length >= 4) {
-				addChild.style.display = "none";
+				// at limit of kids?
+				if (userData.children.length >= 4) {
+					addChild.style.display = "none";
+				}
+
+				addChildName(name,userData.children.length - 1);
+				pickChild(userData.children.length - 1);
+				setLocalData("children",userData.children);
+				updateGoodness();
 			}
-			addChildName(name,userData.children.length - 1);
-			pickChild(userData.children.length - 1);
-			setLocalData("children",userData.children);
+
 			closeChildPicker();
-			updateGoodness();
 		}
 		else {
-			newChild.style.display = "block";
-			addChild.innerHTML = "✓";
-			newChild.children[0].focus();
+			startAddChild();
 		}
 	}
 

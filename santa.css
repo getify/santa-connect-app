@@ -44,24 +44,25 @@ button {
 
 body > h1 {
 	text-align: center;
-	font-size: 3em;
+	font-size: 5em;
 	color: #d42426;
+	margin-top: 0.5em;
 	-webkit-text-stroke: 1px #fff;
 }
 
 #child {
 	position: relative;
 	display: block;
-	margin: 0px auto 50px auto;
-	width: 60vw;
+	margin: 0px auto 0px auto;
+	width: 80vw;
 }
 
 #selected-child {
 	position: relative;
 	display: block;
-	width: 60vw;
-	height: 2em;
-	font-size: 2em;
+	width: 100%;
+	height: 2.3em;
+	font-size: 3.7em;
 	color: #3c8d0d;
 	background-color: #fff;
 	border-radius: 5px;
@@ -73,9 +74,8 @@ body > h1 {
 #selected-child > #child-name {
 	display: inline-block;
 	overflow: hidden;
-	width: 50vw;
-	height: 2em;
-	line-height: 2em;
+	width: 70vw;
+	line-height: 2.4em;
 	padding: 0px 0.5em;
 	white-space: nowrap;
 	overflow: hidden;
@@ -86,8 +86,7 @@ body > h1 {
 	display: inline-block;
 	overflow: hidden;
 	width: 10vw;
-	height: 2em;
-	line-height: 2em;
+	line-height: 2.4em;
 	color: #d42426;
 	text-align: right;
 	padding: 0px 0.5em 0px 0px;
@@ -96,23 +95,27 @@ body > h1 {
 #child-picker {
 	display: none;
 	position: absolute;
-	width: 50vw;
-	top: 102%;
+	width: 70vw;
+	top: 103%;
 	color: #3c8d0d;
 	background-color: #fff;
 	border: 1px solid #a00;
 	border-radius: 5px;
 	padding: 20px;
-	font-size: 2em;
 	box-shadow: 5px 5px 15px #a00;
 	z-index: 100;
 }
 
-#child-picker > button.child-choice {
+#child-picker > #child-options {
+	display: none;
+	width: 100%;
+}
+
+#child-options > button.child-option {
 	display: block;
 	width: 100%;
 	text-align: left;
-	font-size: 1em;
+	font-size: 3.7em;
 	padding: 5px;
 	color: #3c8d0d;
 	overflow: hidden;
@@ -121,11 +124,31 @@ body > h1 {
 	margin-bottom: 0.5em;
 }
 
+#child-options > button.child-option:last-child {
+	margin-bottom: 0px;
+}
+
+#child-picker > #add-child {
+	position: absolute;
+	top: 0px;
+	left: 100%;
+	font-size: 4em;
+	font-weight: bold;
+	color: #3c8d0d;
+	background-color: #fff;
+	width: 10vw;
+	height: 10vw;
+	padding: 0px;
+	box-shadow: 5px 5px 15px #a00;
+	border: 1px solid #a00;
+	overflow: hidden;
+	vertical-align: top;
+}
+
 #child-picker > #new-child {
-	display: none;
+	display: block;
 	background-color: #fff;
 	padding: 0px;
-	font-size: 0.5em;
 	margin-bottom: 5px;
 }
 
@@ -137,30 +160,17 @@ body > h1 {
 	cursor: text;
 	background-color: #d5ffa6;
 	color: #3c8d0d;
-	font-size: 2em;
+	font-size: 3.7em;
 	outline: 0px;
-}
-
-#child-picker > #add-child {
-	line-height: 0.1em;
-	font-size: 0.7em;
-	font-weight: bold;
-	color: #3c8d0d;
-	background-color: #fff;
-	width: 1.4em;
-	height: 1.4em;
-	padding: 0px;
-	border: 2px solid #3c8d0d;
-	overflow: hidden;
-	vertical-align: top;
+	text-transform: uppercase;
 }
 
 #goodness-scale {
 	display: none;
 	position: relative;
 	width: 35vw;
-	height: 50vh;
-	margin-left: 10px;
+	height: 55vh;
+	margin: 10vw 0px 0px 3vw;
 }
 
 #meter {
@@ -170,7 +180,7 @@ body > h1 {
 	transform: translateX(-50%);
 	background-color: #fff;
 	width: 5vw;
-	height: 28vh;
+	height: 33vh;
 	border-radius: 3px;
 }
 
@@ -215,12 +225,12 @@ body > h1 {
 #nice, #naughty {
 	position: absolute;
 	display: block;
-	font-size: 1.7em;
+	font-size: 3em;
 	font-weight: bold;
 	color: #3c8d0d;
 	background-color: #fff;
 	width: 35vw;
-	height: 9.5vh;
+	height: 3em;
 	padding: 0px;
 	overflow: hidden;
 	vertical-align: top;
@@ -242,7 +252,7 @@ body > h1 {
 	top: 50%;
 	left: 120%;
 	transform: translateY(-50%);
-	font-size: 4em;
+	font-size: 7em;
 	font-weight: bold;
 	color: #d42426;
 	-webkit-text-stroke: 1px #fff;
@@ -258,7 +268,9 @@ body > h1 {
 	padding: 0px;
 	width: 10vw;
 	height: 10vw;
-	font-size: 2.5em;
+	font-size: 4.5em;
+	font-weight: bold;
+	line-height: 0.5em;
 	vertical-align: top;
 }
 
@@ -276,11 +288,11 @@ body > h1 {
 
 #menu > button {
 	display: block;
-	width: 40vw;
+	width: 50vw;
 	text-align: left;
-	font-size: 1.5em;
+	font-size: 3.5em;
 	color: #3c8d0d;
-	padding: 0.3em;
+	padding: 0.6em;
 }
 
 #menu > #reset {
@@ -293,12 +305,12 @@ body > h1 {
 #confirm-dialog {
 	display: none;
 	position: fixed;
-	width: 70vw;
+	width: 85vw;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
 	border: 1px solid #a00;
-	border-radius: 5px;
+	border-radius: 10px;
 	background-color: #fff;
 	box-shadow: 5px 5px 15px #a00;
 	padding: 1em;
@@ -307,19 +319,19 @@ body > h1 {
 }
 
 #confirm-dialog > p {
-	font-size: 1.5em;
+	font-size: 3.5em;
 	color: #3c8d0d;
 }
 
 #confirm-dialog > button {
 	display: inline-block;
-	font-size: 2em;
+	font-size: 4em;
 	font-weight: bold;
 	color: #3c8d0d;
 	padding: 0.3em;
 	color: #3c8d0d;
 	border: 2px solid #3c8d0d;
-	margin-right: 1.5em;
+	margin: 0px 1.5em 0.7em 0px;
 	vertical-align: top;
 }
 
@@ -328,6 +340,7 @@ body > h1 {
 }
 
 #login {
+	display: block;
 	font-size: 1vw;
 	position: fixed;
 	width: 100%;
@@ -339,35 +352,36 @@ body > h1 {
 }
 
 #login-modal {
+	display: none;
 	position: absolute;
 	overflow: hidden;
-	width: 74vw;
+	width: 86vw;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
 	border-radius: 20px;
-	padding: 5vw 5vw;
 	background-color: #fff;
 	color: #3c8d0d;
 	font-weight: bold;
 }
 
 #login-modal h2 {
-	font-size: 4em;
+	font-size: 6em;
 	text-align: center;
+	margin-bottom: 0.2em;
 }
 
 #number-pad {
 	margin: 0px auto 5vh auto;
-	width: 40vw;
+	width: 64vw;
 }
 
 #number-pad > button {
-	font-size: 7em;
+	font-size: 10em;
 	font-weight: bold;
 	color: #3c8d0d;
-	width: 12vw;
-	height: 12vw;
+	width: 20vw;
+	height: 20vw;
 	padding: 0px;
 	margin: 0vw 2vw 2vw 0vw;
 	border: 2px solid #3c8d0d;
@@ -396,7 +410,7 @@ body > h1 {
 
 #number-pad > #pad-cancel,
 #number-pad > #pad-submit {
-	font-size: 2.5em;
+	font-size: 4em;
 }
 
 #PIN {

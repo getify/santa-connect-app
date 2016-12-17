@@ -15,8 +15,9 @@
 	</button>
 
 	<div id="child-picker" rel="js-child-picker">
-		<div id="new-child" rel="js-new-child"><input type="text"></div>
-		<button id="add-child" rel="js-add-child">+</button>
+		<button id="add-child" rel="js-add-child-btn">✓</button>
+		<div id="new-child" rel="js-new-child"><input type="text" maxlength="20"></div>
+		<div id="child-options" rel="js-child-options"></div>
 	</div>
 </div>
 
@@ -42,8 +43,8 @@
 	<button rel="js-confirm-no">No</button><button id="confirm-yes" rel="js-confirm-yes">Yes</button>
 </div>
 
-<div id="login" rel="js-login-modal">
-	<div id="login-modal">
+<div id="login" rel="js-login">
+	<div id="login-modal" rel="js-login-modal">
 		<h2>Parent Code</h2>
 		<div id="PIN">
 			<span rel="js-digit-1"></span><span rel="js-digit-2"></span><span rel="js-digit-3"></span><span id="digit-4" rel="js-digit-4"></span>
