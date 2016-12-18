@@ -12,6 +12,7 @@
 	var newChild;
 	var addChild;
 	var goodnessScale;
+	var meter;
 	var meterTab;
 	var niceButton;
 	var naughtyButton;
@@ -27,6 +28,7 @@
 	var userData;
 	var userSession;
 	var PINentered = "";
+	var meterRect;
 
 	// pull user data
 	userData = getLocalData();
@@ -56,6 +58,7 @@
 		newChild = getElementByRel("js-new-child");
 		addChild = getElementByRel("js-add-child-btn");
 		goodnessScale = getElementByRel("js-goodness-scale");
+		meter = getElementByRel("js-meter");
 		meterTab = getElementByRel("js-meter-tab");
 		niceButton = getElementByRel("js-nice-btn");
 		naughtyButton = getElementByRel("js-naughty-btn");
@@ -123,6 +126,9 @@
 		newChild.children[0].addEventListener("keypress",newNameKeyPressed,false);
 		niceButton.addEventListener("click",nicePressed,false);
 		naughtyButton.addEventListener("click",naughtyPressed,false);
+
+		meter.addEventListener("touchstart",meterDragStart,false);
+		meter.addEventListener("mousedown",meterDragStart,false);
 	}
 
 	function openMenu(evt) {
@@ -501,8 +507,53 @@
 		}
 	}
 
+	function meterDragStart(evt) {
+		stopEvent(evt);
+		meterRect = meter.getBoundingClientRect();
+		meterDragMove(evt);
+		meter.addEventListener("touchmove",meterDragMove,false);
+		meter.addEventListener("mousemove",meterDragMove,false);
+		document.addEventListener("touchcancel",meterDragEnd,false);
+		document.addEventListener("touchend",meterDragEnd,false);
+		document.addEventListener("mouseup",meterDragEnd,false);
+	}
+
+	function meterDragMove(evt) {
+		stopEvent(evt);
+		evt = normalizeClickTouchEvent(evt);
+		if (evt.clientY >= meterRect.top && evt.clientY <= meterRect.bottom) {
+			var percent = Math.max(
+				0,
+				Math.min(
+					100,
+					Math.round((meterRect.bottom - evt.clientY) / meterRect.height * 5) * 20
+				)
+			);
+
+			var index = Number(selectedChild.getAttribute("data-child"));
+			userData.children[index].score = percent;
+			setLocalData("children",userData.children);
+			updateGoodness();
+		}
+	}
+
+	function meterDragEnd(evt) {
+		stopEvent(evt);
+		meter.removeEventListener("touchmove",meterDragMove,false);
+		meter.removeEventListener("mousemove",meterDragMove,false);
+		document.removeEventListener("touchcancel",meterDragEnd,false);
+		document.removeEventListener("touchend",meterDragEnd,false);
+		document.removeEventListener("mouseup",meterDragEnd,false);
+	}
 
 	// **********************
+
+	function normalizeClickTouchEvent(evt) {
+		if (evt && TouchEvent && evt instanceof TouchEvent && evt.touches) {
+			return evt.touches[0];
+		}
+		return evt;
+	}
 
 	function stopEvent(evt) {
 		if (evt) {
