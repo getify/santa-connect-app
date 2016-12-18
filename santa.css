@@ -65,7 +65,7 @@ body > h1 {
 	font-size: 3.7em;
 	color: #3c8d0d;
 	background-color: #fff;
-	border-radius: 5px;
+	border-radius: 15px;
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;
@@ -100,7 +100,8 @@ body > h1 {
 	color: #3c8d0d;
 	background-color: #fff;
 	border: 1px solid #a00;
-	border-radius: 5px;
+	border-radius: 15px;
+	border-top-right-radius: 0px;
 	padding: 20px;
 	box-shadow: 5px 5px 15px #a00;
 	z-index: 100;
@@ -130,7 +131,7 @@ body > h1 {
 
 #child-picker > #add-child {
 	position: absolute;
-	top: 0px;
+	top: -1px;
 	left: 100%;
 	font-size: 4em;
 	font-weight: bold;
@@ -140,6 +141,8 @@ body > h1 {
 	height: 10vw;
 	padding: 0px;
 	box-shadow: 5px 5px 15px #a00;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
 	border: 1px solid #a00;
 	overflow: hidden;
 	vertical-align: top;
@@ -181,7 +184,7 @@ body > h1 {
 	background-color: #fff;
 	width: 5vw;
 	height: 33vh;
-	border-radius: 3px;
+	border-radius: 10px;
 }
 
 #meter-tab {
@@ -234,7 +237,7 @@ body > h1 {
 	padding: 0px;
 	overflow: hidden;
 	vertical-align: top;
-	border-radius: 5px;
+	border-radius: 15px;
 	white-space: nowrap;
 	z-index: 10;
 }
@@ -280,7 +283,7 @@ body > h1 {
 	left: 10px;
 	top: 10px;
 	border: 1px solid #a00;
-	border-radius: 5px;
+	border-radius: 15px;
 	background-color: #fff;
 	box-shadow: 5px 5px 15px #a00;
 	padding: 1em;
@@ -310,7 +313,7 @@ body > h1 {
 	top: 50%;
 	transform: translate(-50%,-50%);
 	border: 1px solid #a00;
-	border-radius: 10px;
+	border-radius: 15px;
 	background-color: #fff;
 	box-shadow: 5px 5px 15px #a00;
 	padding: 1em;
@@ -359,7 +362,7 @@ body > h1 {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
-	border-radius: 20px;
+	border-radius: 15px;
 	background-color: #fff;
 	color: #3c8d0d;
 	font-weight: bold;
