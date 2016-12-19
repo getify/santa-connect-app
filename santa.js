@@ -57,7 +57,7 @@
 
 	// lock orientation to portrait, if possible
 	if (lockOrientation) {
-		lockOrientation("portrait");
+		lockOrientation("portrait").catch(function noop(){});
 	}
 
 	// pull user data
