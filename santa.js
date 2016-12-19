@@ -37,6 +37,28 @@
 	var userSession;
 	var PINentered = "";
 	var meterRect;
+	var lockOrientation;
+
+	// detect orientation locking
+	lockOrientation =
+	(window.screen.lockOrientation ?
+		window.screen.lockOrientation.bind(window.screen) : null
+	) ||
+	(window.screen.mozLockOrientation ?
+		window.screen.mozLockOrientation.bind(window.screen) : null
+	) ||
+	(window.screen.msLockOrientation ?
+		window.screen.msLockOrientation.bind(window.screen) : null
+	) ||
+	((window.screen.orientation && window.screen.orientation.lock) ?
+		window.screen.orientation.lock.bind(window.screen.orientation) : null
+	) ||
+	null;
+
+	// lock orientation to portrait, if possible
+	if (lockOrientation) {
+		lockOrientation("portrait");
+	}
 
 	// pull user data
 	userData = getLocalData();
