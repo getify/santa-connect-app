@@ -539,3 +539,13 @@ body > h1 > img {
 #wishlist-items > li > input.active {
 	background-color: #d5ffa6;
 }
+
+
+
+/* tweak CSS for standalone app mode */
+
+@media (display-mode: standalone) {
+	#splash {
+		display: none;
+	}
+}
