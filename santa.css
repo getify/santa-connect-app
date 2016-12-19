@@ -50,6 +50,31 @@ body > h1 {
 	-webkit-text-stroke: 1px #fff;
 }
 
+#page-cover {
+	display: block;
+	font-size: 1vw;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: #3c8d0d;
+	z-index: 1000;
+}
+
+#splash {
+	display: block;
+}
+
+#splash > h1 {
+	text-align: center;
+	font-size: 12.5em;
+	color: #d42426;
+	margin: 0px;
+	padding: 0px;
+	-webkit-text-stroke: 2px #fff;
+}
+
 #child {
 	position: relative;
 	display: block;
@@ -340,18 +365,6 @@ body > h1 {
 
 #confirm-dialog > #confirm-yes {
 	margin-right: 0px;
-}
-
-#login {
-	display: block;
-	font-size: 1vw;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	left: 0px;
-	top: 0px;
-	background-color: #3c8d0d;
-	z-index: 1000;
 }
 
 #login-modal {

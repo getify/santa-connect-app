@@ -23,7 +23,8 @@
 	var wishlistName;
 	var wishlistItems;
 	var wishlistItemsList;
-	var loginBackground;
+	var pageCover;
+	var splash;
 	var loginModal;
 	var PINdigits;
 	var numberPad;
@@ -82,7 +83,8 @@
 			getElementByRel("js-wishlist-item-4").children[0],
 			getElementByRel("js-wishlist-item-5").children[0]
 		];
-		loginBackground = getElementByRel("js-login");
+		pageCover = getElementByRel("js-page-cover");
+		splash = getElementByRel("js-splash");
 		loginModal = getElementByRel("js-login-modal");
 		PINdigits = [
 			getElementByRel("js-digit-1"),
@@ -95,6 +97,9 @@
 		loginSubmitBtn = getElementByRel("js-pad-submit");
 		confirmDialog = getElementByRel("js-confirm-dialog");
 		confirmMsg = getElementByRel("js-confirm-msg");
+
+		// hide title splash now that we've loaded
+		splash.style.display = "none";
 
 		// has user entered any children?
 		if (userData.children && userData.children.length > 0) {
@@ -334,14 +339,14 @@
 		closeMenu();
 		closeChildPicker();
 
-		loginBackground.style.display = "block";
+		pageCover.style.display = "block";
 		loginModal.style.display = "block";
 	}
 
 	function closeLogin(evt) {
 		stopEvent(evt);
 
-		loginBackground.style.display = "none";
+		pageCover.style.display = "none";
 	}
 
 	function numberPadPressed(evt) {
