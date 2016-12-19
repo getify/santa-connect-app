@@ -44,15 +44,18 @@ button {
 
 body > h1 {
 	text-align: center;
-	font-size: 5em;
+	font-size: 1.9em;
 	color: #d42426;
 	margin-top: 0.5em;
-	-webkit-text-stroke: 1px #fff;
+	-webkit-text-stroke: 0.5px #fff;
+}
+
+body > h1 > img {
+	vertical-align: top;
 }
 
 #page-cover {
 	display: block;
-	font-size: 1vw;
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -68,11 +71,11 @@ body > h1 {
 
 #splash > h1 {
 	text-align: center;
-	font-size: 12.5em;
+	font-size: 3.5em;
 	color: #d42426;
 	margin: 0px;
 	padding: 0px;
-	-webkit-text-stroke: 2px #fff;
+	-webkit-text-stroke: 1px #fff;
 }
 
 #child {
@@ -86,35 +89,36 @@ body > h1 {
 	position: relative;
 	display: block;
 	width: 100%;
-	height: 2.3em;
-	font-size: 3.7em;
 	color: #3c8d0d;
 	background-color: #fff;
-	border-radius: 15px;
+	border-radius: 5px;
 	text-align: left;
 	overflow: hidden;
 	white-space: nowrap;
+	padding: 0px;
+	font-size: 1.8em;
 }
 
 #selected-child > #child-name {
 	display: inline-block;
 	overflow: hidden;
 	width: 70vw;
-	line-height: 2.4em;
-	padding: 0px 0.5em;
+	padding: 0px;
+	padding-left: 0.5em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	vertical-align: middle;
 }
 
 #selected-child > #drop-arrow {
 	display: inline-block;
 	overflow: hidden;
 	width: 10vw;
-	line-height: 2.4em;
 	color: #d42426;
-	text-align: right;
-	padding: 0px 0.5em 0px 0px;
+	text-align: left;
+	vertical-align: middle;
+	padding: 0px;
 }
 
 #child-picker {
@@ -125,10 +129,10 @@ body > h1 {
 	color: #3c8d0d;
 	background-color: #fff;
 	border: 1px solid #a00;
-	border-radius: 15px;
+	border-radius: 5px;
 	border-top-right-radius: 0px;
-	padding: 20px;
-	box-shadow: 5px 5px 15px #a00;
+	padding: 10px;
+	box-shadow: 3px 3px 7px #a00;
 	z-index: 100;
 }
 
@@ -141,13 +145,13 @@ body > h1 {
 	display: block;
 	width: 100%;
 	text-align: left;
-	font-size: 3.7em;
+	font-size: 1.8em;
 	padding: 5px;
 	color: #3c8d0d;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	margin-bottom: 0.5em;
+	margin-bottom: 0.2em;
 }
 
 #child-options > button.child-option:last-child {
@@ -158,16 +162,16 @@ body > h1 {
 	position: absolute;
 	top: -1px;
 	left: 100%;
-	font-size: 4em;
+	font-size: 1.8em;
 	font-weight: bold;
 	color: #3c8d0d;
 	background-color: #fff;
 	width: 10vw;
 	height: 10vw;
 	padding: 0px;
-	box-shadow: 5px 5px 15px #a00;
-	border-top-right-radius: 15px;
-	border-bottom-right-radius: 15px;
+	box-shadow: 3px 3px 7px #a00;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 	border: 1px solid #a00;
 	overflow: hidden;
 	vertical-align: top;
@@ -188,7 +192,7 @@ body > h1 {
 	cursor: text;
 	background-color: #d5ffa6;
 	color: #3c8d0d;
-	font-size: 3.7em;
+	font-size: 1.8em;
 	outline: 0px;
 	text-transform: uppercase;
 }
@@ -196,7 +200,7 @@ body > h1 {
 #goodness-scale {
 	display: none;
 	position: relative;
-	width: 35vw;
+	width: 38vw;
 	height: 50vh;
 	margin: 10vw 0px 0px 3vw;
 }
@@ -209,7 +213,7 @@ body > h1 {
 	background-color: #fff;
 	width: 5vw;
 	height: 28vh;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 #meter-tab {
@@ -220,7 +224,7 @@ body > h1 {
 	width: 10vw;
 	height: 3vh;
 	background-color: #d42426;
-	border-radius: 10px;
+	border-radius: 5px;
 	border: 1px solid #fff;
 }
 
@@ -253,16 +257,15 @@ body > h1 {
 #nice, #naughty {
 	position: absolute;
 	display: block;
-	font-size: 3em;
+	font-size: 1.3em;
 	font-weight: bold;
 	color: #3c8d0d;
 	background-color: #fff;
-	width: 35vw;
-	height: 3em;
-	padding: 0px;
+	width: 100%;
+	padding: 0.7em 0px;
 	overflow: hidden;
 	vertical-align: top;
-	border-radius: 15px;
+	border-radius: 8px;
 	white-space: nowrap;
 	z-index: 10;
 }
@@ -278,12 +281,12 @@ body > h1 {
 #child-status {
 	position: absolute;
 	top: 50%;
-	left: 120%;
+	left: 100%;
 	transform: translateY(-50%);
-	font-size: 6.2em;
+	font-size: 2.3em;
 	font-weight: bold;
 	color: #d42426;
-	-webkit-text-stroke: 1px #fff;
+	-webkit-text-stroke: 0.5px #fff;
 	white-space: nowrap;
 }
 
@@ -296,7 +299,7 @@ body > h1 {
 	padding: 0px;
 	width: 10vw;
 	height: 10vw;
-	font-size: 4.5em;
+	font-size: 2em;
 	font-weight: bold;
 	line-height: 0.5em;
 	vertical-align: top;
@@ -308,19 +311,20 @@ body > h1 {
 	left: 10px;
 	top: 10px;
 	border: 1px solid #a00;
-	border-radius: 15px;
+	border-radius: 8px;
 	background-color: #fff;
-	box-shadow: 5px 5px 15px #a00;
-	padding: 1em;
+	box-shadow: 3px 3px 7px #a00;
+	padding: 0.5em;
+	z-index: 1000;
 }
 
 #menu > button {
 	display: block;
 	width: 50vw;
 	text-align: left;
-	font-size: 3.5em;
+	font-size: 1.5em;
 	color: #3c8d0d;
-	padding: 0.6em;
+	padding: 0.4em;
 }
 
 #menu > #reset {
@@ -338,28 +342,29 @@ body > h1 {
 	top: 50%;
 	transform: translate(-50%,-50%);
 	border: 1px solid #a00;
-	border-radius: 15px;
+	border-radius: 8px;
 	background-color: #fff;
-	box-shadow: 5px 5px 15px #a00;
+	box-shadow: 3px 3px 7px #a00;
 	padding: 1em;
 	z-index: 500;
 	text-align: center;
 }
 
 #confirm-dialog > p {
-	font-size: 3.5em;
+	font-size: 1.5em;
 	color: #3c8d0d;
+	margin-top: 0.3em;
 }
 
 #confirm-dialog > button {
 	display: inline-block;
-	font-size: 4em;
+	font-size: 2em;
 	font-weight: bold;
 	color: #3c8d0d;
 	padding: 0.3em;
 	color: #3c8d0d;
 	border: 2px solid #3c8d0d;
-	margin: 0px 1.5em 0.7em 0px;
+	margin: 0px 1.3em 0.2em 0px;
 	vertical-align: top;
 }
 
@@ -375,14 +380,14 @@ body > h1 {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
-	border-radius: 15px;
+	border-radius: 8px;
 	background-color: #fff;
 	color: #3c8d0d;
 	font-weight: bold;
 }
 
 #login-modal > h2 {
-	font-size: 6em;
+	font-size: 2.6em;
 	text-align: center;
 	margin-bottom: 0.2em;
 }
@@ -393,7 +398,7 @@ body > h1 {
 }
 
 #number-pad > button {
-	font-size: 10em;
+	font-size: 3.6em;
 	font-weight: bold;
 	color: #3c8d0d;
 	width: 20vw;
@@ -426,7 +431,7 @@ body > h1 {
 
 #number-pad > #pad-cancel,
 #number-pad > #pad-submit {
-	font-size: 4em;
+	font-size: 1em;
 }
 
 #PIN {
@@ -437,14 +442,13 @@ body > h1 {
 
 #PIN > span {
 	display: inline-block;
-	font-size: 7em;
+	font-size: 3em;
 	border-bottom: 4px solid #3c8d0d;
 	width: 8vw;
-	height: 8vw;
+	height: 12vw;
 	margin: 0vw 2vw 0vw 0vw;
 	text-align: center;
-	vertical-align: bottom;
-	line-height: 1.5em;
+	vertical-align: top;
 }
 
 #PIN > #digit-4 {
@@ -454,16 +458,16 @@ body > h1 {
 #wishlist-button {
 	display: none;
 	margin: 5vw auto 0px auto;
-	font-size: 3em;
+	font-size: 1.3em;
 	font-weight: bold;
 	color: #3c8d0d;
 	background-color: #fff;
 	width: 50vw;
 	height: 3em;
-	padding: 0px;
+	padding: 0.7em 0px;
 	overflow: hidden;
 	vertical-align: top;
-	border-radius: 15px;
+	border-radius: 8px;
 	white-space: nowrap;
 }
 
@@ -477,11 +481,11 @@ body > h1 {
 	transform: translateX(-50%);
 	border: 1px solid #a00;
 	border-top-width: 0px;
-	border-radius: 15px;
+	border-radius: 8px;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	background-color: #fff;
-	box-shadow: 5px 5px 15px #a00;
+	box-shadow: 3px 3px 7px #a00;
 	color: #3c8d0d;
 }
 
@@ -489,7 +493,7 @@ body > h1 {
 	position: absolute;
 	right: 0.5em;
 	top: 0.5em;
-	font-size: 4em;
+	font-size: 1.4em;
 	padding: 0px;
 	color: #3c8d0d;
 	font-weight: bold;
@@ -497,28 +501,28 @@ body > h1 {
 }
 
 #wishlist-modal > h2 {
-	font-size: 3em;
+	font-size: 1.2em;
 	text-align: center;
-	margin-bottom: 0.2em;
+	margin-bottom: 0.5em;
 	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 #wishlist-items {
-	margin: 3em 0px;
+	margin: 0px 0px 0.8em 0px;
 }
 
 #wishlist-items > li {
-	margin: 0px 1.2em 0.3em 1.2em;
-	font-size: 4em;
+	margin: 0px 1.2em 0.2em 0.7em;
+	font-size: 1.3em;
 	color: #3c8d0d;
 	padding: 0px;
 }
 
 #wishlist-items > li > input {
 	color: #3c8d0d;
-	font-size: 1em;
+	font-size: 1.3em;
 	border: 0px;
 	outline: none;
 	background-color: transparent;

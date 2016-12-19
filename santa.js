@@ -390,7 +390,7 @@
 			}
 			// otherwise, not entered yet
 			else {
-				PINdigits[i].innerHTML = "";
+				PINdigits[i].innerHTML = "&nbsp;";
 			}
 		}
 	}
@@ -682,8 +682,7 @@
 			if (!wishlistItemsList[i].disabled) {
 				wishlistItemsList[i].value = wishlistItemsList[i].value
 					.replace(/^\s+/,"")
-					.replace(/\s+$/,"")
-					.substr(0,30);
+					.substr(0,15);
 				userData.children[childIndex].wishlist[i] = wishlistItemsList[i].value.toUpperCase();
 			}
 		}
@@ -702,9 +701,13 @@
 
 			// filter wishlist items to avoid empty slots
 			userData.children[childIndex].wishlist =
-				userData.children[childIndex].wishlist.filter(function isNonEmpty(val){
-					return (val != "" && /[^\s]/.test(val));
-				});
+				userData.children[childIndex].wishlist
+					.filter(function isNonEmpty(val){
+						return (val != "" && /[^\s]/.test(val));
+					})
+					.map(function trim(val){
+						return val.replace(/\s+$/,"");
+					});
 			setLocalData("children",userData.children);
 
 			// empty wishlist items

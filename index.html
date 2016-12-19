@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#3c8d0d">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="viewport" content="user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#3c8d0d">
 
 <link rel="manifest" href="manifest.json">
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<h1><img src="app-icons/santa-64x64.png" alt="Santa!"> Santa Connect</h1>
+<h1><img src="app-icons/santa-32x32.png" alt="Santa!"> Santa Connect</h1>
 
 <div id="child">
 	<button id="selected-child" rel="js-selected-child">
@@ -52,11 +52,11 @@
 	<h2><span id="wishlist-name" rel="js-wishlist-name"></span>'S WISH LIST</h2>
 	<button id="wishlist-close" rel="js-wishlist-close">X</button>
 	<ol id="wishlist-items" rel="js-wishlist-items">
-		<li rel="js-wishlist-item-1"><input value="" maxlength="30"></li>
-		<li rel="js-wishlist-item-2"><input value="" maxlength="30"></li>
-		<li rel="js-wishlist-item-3"><input value="" maxlength="30"></li>
-		<li rel="js-wishlist-item-4"><input value="" maxlength="30"></li>
-		<li rel="js-wishlist-item-5"><input value="" maxlength="30"></li>
+		<li rel="js-wishlist-item-1"><input value="" maxlength="15"></li>
+		<li rel="js-wishlist-item-2"><input value="" maxlength="15"></li>
+		<li rel="js-wishlist-item-3"><input value="" maxlength="15"></li>
+		<li rel="js-wishlist-item-4"><input value="" maxlength="15"></li>
+		<li rel="js-wishlist-item-5"><input value="" maxlength="15"></li>
 	</ol>
 </div>
 
@@ -76,7 +76,7 @@
 	<div id="login-modal" rel="js-login-modal">
 		<h2>Parent Code</h2>
 		<div id="PIN">
-			<span rel="js-digit-1"></span><span rel="js-digit-2"></span><span rel="js-digit-3"></span><span id="digit-4" rel="js-digit-4"></span>
+			<span rel="js-digit-1">&nbsp;</span><span rel="js-digit-2">&nbsp;</span><span rel="js-digit-3">&nbsp;</span><span id="digit-4" rel="js-digit-4">&nbsp;</span>
 		</div>
 		<div id="number-pad" rel="js-number-pad">
 			<button rel="js-pad-1">1</button><button rel="js-pad-2">2</button><button id="pad-3" rel="js-pad-3">3</button><button rel="js-pad-4">4</button><button rel="js-pad-5">5</button><button id="pad-6" rel="js-pad-6">6</button><button rel="js-pad-7">7</button><button rel="js-pad-8">8</button><button id="pad-9" rel="js-pad-9">9</button><button id="pad-cancel" rel="js-pad-cancel" disabled>Clear</button><button id="pad-0" rel="js-pad-0">0</button><button id="pad-submit" rel="js-pad-submit" disabled>Set Code</button>
