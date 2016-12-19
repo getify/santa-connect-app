@@ -1,39 +1,39 @@
 {
 	"short_name": "SantaConnect",
 	"name": "Santa Connect",
-	"start_url": "/index.html",
+	"start_url": "/santa-connect-app/index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
 	"background_color": "#3c8d0d",
 	"theme_color": "#3c8d0d",
 	"icons": [
 		{
-			"src": "app-icons/santa-32x32.png",
+			"src": "/santa-connect-app/app-icons/santa-32x32.png",
 			"type": "image/png",
 			"sizes": "32x32"
 		},
 		{
-			"src": "app-icons/santa-48x48.png",
+			"src": "/santa-connect-app/app-icons/santa-48x48.png",
 			"type": "image/png",
 			"sizes": "48x48"
 		},
 		{
-			"src": "app-icons/santa-64x64.png",
+			"src": "/santa-connect-app/app-icons/santa-64x64.png",
 			"type": "image/png",
 			"sizes": "64x64"
 		},
 		{
-			"src": "app-icons/santa-96x96.png",
+			"src": "/santa-connect-app/app-icons/santa-96x96.png",
 			"type": "image/png",
 			"sizes": "96x96"
 		},
 		{
-			"src": "app-icons/santa-150x150.png",
+			"src": "/santa-connect-app/app-icons/santa-150x150.png",
 			"type": "image/png",
 			"sizes": "150x150"
 		},
 		{
-			"src": "app-icons/santa-192x192.png",
+			"src": "/santa-connect-app/app-icons/santa-192x192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}
