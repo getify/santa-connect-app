@@ -99,6 +99,10 @@ body > h1 > img {
 	font-size: 1.8em;
 }
 
+#selected-child:active {
+	background-color: #ddd;
+}
+
 #selected-child > #child-name {
 	display: inline-block;
 	overflow: hidden;
@@ -158,6 +162,10 @@ body > h1 > img {
 	margin-bottom: 0px;
 }
 
+#child-options > button.child-option:active {
+	background-color: #ddd;
+}
+
 #child-picker > #add-child {
 	position: absolute;
 	top: -1px;
@@ -175,6 +183,10 @@ body > h1 > img {
 	border: 1px solid #a00;
 	overflow: hidden;
 	vertical-align: top;
+}
+
+#child-picker > #add-child:active {
+	background-color: #ddd;
 }
 
 #child-picker > #new-child {
@@ -270,6 +282,10 @@ body > h1 > img {
 	z-index: 10;
 }
 
+#nice:active, #naughty:active {
+	background-color: #ddd;
+}
+
 #nice {
 	top: 0px;
 }
@@ -305,6 +321,10 @@ body > h1 > img {
 	vertical-align: top;
 }
 
+#menu-icon:active {
+	color: #ddd;
+}
+
 #menu {
 	display: none;
 	position: fixed;
@@ -325,6 +345,10 @@ body > h1 > img {
 	font-size: 1.5em;
 	color: #3c8d0d;
 	padding: 0.4em;
+}
+
+#menu > button:active {
+	background-color: #ddd;
 }
 
 #menu > #reset {
@@ -366,6 +390,10 @@ body > h1 > img {
 	border: 2px solid #3c8d0d;
 	margin: 0px 1.3em 0.2em 0px;
 	vertical-align: top;
+}
+
+#confirm-dialog > button:active {
+	background-color: #ddd;
 }
 
 #confirm-dialog > #confirm-yes {
@@ -414,6 +442,10 @@ body > h1 > img {
 	color: #ccc;
 	border-color: #ccc;
 	cursor: not-allowed;
+}
+
+#number-pad > button:active {
+	background-color: #ddd;
 }
 
 #number-pad > #pad-3,
@@ -471,6 +503,10 @@ body > h1 > img {
 	white-space: nowrap;
 }
 
+#wishlist-button:active {
+	background-color: #ddd;
+}
+
 #wishlist-modal {
 	display: none;
 	position: fixed;
@@ -498,6 +534,10 @@ body > h1 > img {
 	color: #3c8d0d;
 	font-weight: bold;
 	z-index: 100;
+}
+
+#wishlist-modal > #wishlist-close:active {
+	background-color: #ddd;
 }
 
 #wishlist-modal > h2 {

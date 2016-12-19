@@ -535,7 +535,12 @@
 			}
 
 			var name = newChild.children[0].value;
-			name = name.replace(/[^a-zA-Z0-9\s\.'"]+/,"").substr(0,20).toUpperCase();
+			name = name
+				.replace(/[^a-zA-Z0-9\s\.'"]+/,"")
+				.replace(/^\s+/,"")
+				.replace(/\s+$/,"")
+				.substr(0,20)
+				.toUpperCase();
 			if (name.length > 0) {
 				userData.children.push({ name: name, score: 100, wishlist: [] });
 
