@@ -172,7 +172,7 @@ body > h1 {
 	display: none;
 	position: relative;
 	width: 35vw;
-	height: 55vh;
+	height: 50vh;
 	margin: 10vw 0px 0px 3vw;
 }
 
@@ -183,7 +183,7 @@ body > h1 {
 	transform: translateX(-50%);
 	background-color: #fff;
 	width: 5vw;
-	height: 33vh;
+	height: 28vh;
 	border-radius: 10px;
 }
 
@@ -255,7 +255,7 @@ body > h1 {
 	top: 50%;
 	left: 120%;
 	transform: translateY(-50%);
-	font-size: 7em;
+	font-size: 6.2em;
 	font-weight: bold;
 	color: #d42426;
 	-webkit-text-stroke: 1px #fff;
@@ -368,7 +368,7 @@ body > h1 {
 	font-weight: bold;
 }
 
-#login-modal h2 {
+#login-modal > h2 {
 	font-size: 6em;
 	text-align: center;
 	margin-bottom: 0.2em;
@@ -436,4 +436,89 @@ body > h1 {
 
 #PIN > #digit-4 {
 	margin-right: 0px;
+}
+
+#wishlist-button {
+	display: none;
+	margin: 5vw auto 0px auto;
+	font-size: 3em;
+	font-weight: bold;
+	color: #3c8d0d;
+	background-color: #fff;
+	width: 50vw;
+	height: 3em;
+	padding: 0px;
+	overflow: hidden;
+	vertical-align: top;
+	border-radius: 15px;
+	white-space: nowrap;
+}
+
+#wishlist-modal {
+	display: none;
+	position: fixed;
+	z-index: 900;
+	width: 95vw;
+	left: 50%;
+	top: 0px;
+	transform: translateX(-50%);
+	border: 1px solid #a00;
+	border-top-width: 0px;
+	border-radius: 15px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	background-color: #fff;
+	box-shadow: 5px 5px 15px #a00;
+	color: #3c8d0d;
+}
+
+#wishlist-modal > #wishlist-close {
+	position: absolute;
+	right: 0.5em;
+	top: 0.5em;
+	font-size: 4em;
+	padding: 0px;
+	color: #3c8d0d;
+	font-weight: bold;
+	z-index: 100;
+}
+
+#wishlist-modal > h2 {
+	font-size: 3em;
+	text-align: center;
+	margin-bottom: 0.2em;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#wishlist-items {
+	margin: 3em 0px;
+}
+
+#wishlist-items > li {
+	margin: 0px 1.2em 0.3em 1.2em;
+	font-size: 4em;
+	color: #3c8d0d;
+	padding: 0px;
+}
+
+#wishlist-items > li > input {
+	color: #3c8d0d;
+	font-size: 1em;
+	border: 0px;
+	outline: none;
+	background-color: transparent;
+	width: 100%;
+	cursor: text;
+	text-transform: uppercase;
+}
+
+#wishlist-items > li > input:disabled {
+	color: #a00;
+	text-decoration: line-through;
+}
+
+#wishlist-items > li > input.active {
+	background-color: #d5ffa6;
 }

@@ -17,6 +17,12 @@
 	var niceButton;
 	var naughtyButton;
 	var childStatus;
+	var wishlistBtn;
+	var wishlistModal;
+	var wishlistClose;
+	var wishlistName;
+	var wishlistItems;
+	var wishlistItemsList;
 	var loginBackground;
 	var loginModal;
 	var PINdigits;
@@ -24,6 +30,7 @@
 	var loginCancelBtn;
 	var loginSubmitBtn;
 	var confirmDialog;
+	var confirmMsg;
 
 	var userData;
 	var userSession;
@@ -36,7 +43,7 @@
 
 	// init DOM elements on DOM-ready
 	if (document.readyState != "interactive" && document.readyState != "complete") {
-		document.addEventListener("DOMContentLoaded",init);
+		document.addEventListener("DOMContentLoaded",init,false);
 	}
 	else {
 		init();
@@ -63,6 +70,18 @@
 		niceButton = getElementByRel("js-nice-btn");
 		naughtyButton = getElementByRel("js-naughty-btn");
 		childStatus = getElementByRel("js-child-status");
+		wishlistBtn = getElementByRel("js-wishlist-btn");
+		wishlistModal = getElementByRel("js-wishlist-modal");
+		wishlistClose = getElementByRel("js-wishlist-close");
+		wishlistName = getElementByRel("js-wishlist-name");
+		wishlistItems = getElementByRel("js-wishlist-items");
+		wishlistItemsList = [
+			getElementByRel("js-wishlist-item-1").children[0],
+			getElementByRel("js-wishlist-item-2").children[0],
+			getElementByRel("js-wishlist-item-3").children[0],
+			getElementByRel("js-wishlist-item-4").children[0],
+			getElementByRel("js-wishlist-item-5").children[0]
+		];
 		loginBackground = getElementByRel("js-login");
 		loginModal = getElementByRel("js-login-modal");
 		PINdigits = [
@@ -75,6 +94,7 @@
 		loginCancelBtn = getElementByRel("js-pad-cancel");
 		loginSubmitBtn = getElementByRel("js-pad-submit");
 		confirmDialog = getElementByRel("js-confirm-dialog");
+		confirmMsg = getElementByRel("js-confirm-msg");
 
 		// has user entered any children?
 		if (userData.children && userData.children.length > 0) {
@@ -93,6 +113,8 @@
 
 			// show goodness scale for selected child
 			updateGoodness();
+
+			wishlistBtn.style.display = "block";
 		}
 
 		// has user created a PIN?
@@ -126,24 +148,34 @@
 		newChild.children[0].addEventListener("keypress",newNameKeyPressed,false);
 		niceButton.addEventListener("click",nicePressed,false);
 		naughtyButton.addEventListener("click",naughtyPressed,false);
-
+		wishlistBtn.addEventListener("click",openWishlist,false);
+		wishlistModal.addEventListener("click",stopEvent,false);
+		wishlistClose.addEventListener("click",closeWishlist,false);
+		wishlistItems.addEventListener("keydown",updateWishlistData,false);
+		wishlistItems.addEventListener("change",updateWishlistData,/*eventCapturingPhase:*/true);
+		wishlistItems.addEventListener("focus",activateWishlistItem,/*eventCapturingPhase:*/true);
+		wishlistItems.addEventListener("blur",deactivateWishlistItems,/*eventCapturingPhase:*/true);
+		wishlistItems.addEventListener("keypress",wishlistKeyPressed,false);
 		meter.addEventListener("touchstart",meterDragStart,false);
 		meter.addEventListener("mousedown",meterDragStart,false);
 	}
 
 	function openMenu(evt) {
+		stopEvent(evt);
+
 		closeChildPicker();
+		closeWishlist();
 
 		if (menu.style.display != "block") {
-			stopEvent(evt);
 			menu.style.display = "block";
 			document.addEventListener("click",closeMenu,false);
 		}
 	}
 
 	function closeMenu(evt) {
-		if (menu.style.display != "none") {
-			stopEvent(evt);
+		stopEvent(evt);
+
+		if (menu.style.display == "block") {
 			menu.style.display = "none";
 			document.removeEventListener("click",closeMenu,false);
 		}
@@ -151,6 +183,7 @@
 
 	function logout(evt) {
 		stopEvent(evt);
+
 		setSessionData("PIN","");
 		resetSelectedChild();
 		updateGoodness();
@@ -160,14 +193,14 @@
 	function openConfirm(msg) {
 		if (confirmDialog.style.display != "block") {
 			confirmDialog.style.display = "block";
-			getElementByRel("js-confirm-msg",confirmDialog).innerHTML = msg;
+			confirmMsg.innerHTML = msg;
 		}
 	}
 
 	function closeConfirm() {
-		if (confirmDialog.style.display != "none") {
+		if (confirmDialog.style.display == "block") {
 			confirmDialog.style.display = "none";
-			getElementByRel("js-confirm-msg",confirmDialog).innerHTML = "";
+			confirmMsg.innerHTML = "";
 		}
 	}
 
@@ -180,35 +213,42 @@
 
 	function resetPressed(evt) {
 		stopEvent(evt);
+
 		closeMenu();
+		closeChildPicker();
+		closeWishlist();
+
 		openConfirm("Clear all data?");
 
 		// global event handler for dialog "modal" behavior
 		document.addEventListener("click",dialogCaptureClicks,/*eventCapturingPhase:*/true);
 
 		// confirm button events
-		confirmDialog.addEventListener("click",function onDialogBtn(evt){
-			stopEvent(evt);
-			var rel = evt.target.getAttribute("rel");
+		confirmDialog.addEventListener("click",onConfirmClear,false);
+	}
 
-			if (/\bjs-confirm-yes\b/.test(rel)) {
-				closeConfirm();
-				reset();
-				openLogin();
-			}
-			else if (/\bjs-confirm-no\b/.test(rel)) {
-				closeConfirm();
-			}
-			else {
-				return;
-			}
+	function onConfirmClear(evt){
+		stopEvent(evt);
 
-			// unregister this event handler now
-			confirmDialog.removeEventListener("click",onDialogBtn,false);
+		var rel = evt.target.getAttribute("rel");
 
-			// unregister global event handler
-			document.removeEventListener("click",dialogCaptureClicks,true);
-		},false);
+		if (/\bjs-confirm-yes\b/.test(rel)) {
+			closeConfirm();
+			reset();
+			openLogin();
+		}
+		else if (/\bjs-confirm-no\b/.test(rel)) {
+			closeConfirm();
+		}
+		else {
+			return;
+		}
+
+		// unregister this event handler now
+		confirmDialog.removeEventListener("click",onConfirmClear,false);
+
+		// unregister global event handler
+		document.removeEventListener("click",dialogCaptureClicks,/*eventCapturingPhase:*/true);
 	}
 
 	function reset() {
@@ -222,19 +262,20 @@
 		userSession = {};
 		loginSubmitBtn.innerHTML = "Set Code";
 		addChild.style.display = "block";
-		selectedChild.removeAttribute("data-child");
-		childName.innerHTML = "&mdash; your child &mdash;";
 
 		// remove child-picker options
 		while (childOptions.children.length > 0) {
 			childOptions.removeChild(childOptions.firstChild);
 		}
 
+		resetSelectedChild();
 		updateGoodness();
+
+		wishlistBtn.style.display = "none";
 	}
 
 	function resetSelectedChild() {
-		if (userData.children) {
+		if (userData.children && userData.children.length > 0) {
 			selectedChild.setAttribute("data-child",userData.children.length-1);
 			childName.innerHTML = userData.children[userData.children.length-1].name;
 		}
@@ -245,10 +286,12 @@
 	}
 
 	function openChildPicker(evt) {
+		stopEvent(evt);
+
 		closeMenu();
+		closeWishlist();
 
 		if (childPicker.style.display != "block") {
-			stopEvent(evt);
 			childPicker.style.display = "block";
 			document.addEventListener("click",closeChildPicker,false);
 
@@ -267,11 +310,15 @@
 				startAddChild();
 			}
 		}
+		else {
+			closeChildPicker();
+		}
 	}
 
 	function closeChildPicker(evt) {
+		stopEvent(evt);
+
 		if (childPicker.style.display == "block") {
-			stopEvent(evt);
 			if (userData.children && userData.children.length > 0) {
 				resetAddChild();
 			}
@@ -283,14 +330,17 @@
 
 	function openLogin(evt) {
 		stopEvent(evt);
+
 		closeMenu();
 		closeChildPicker();
+
 		loginBackground.style.display = "block";
 		loginModal.style.display = "block";
 	}
 
 	function closeLogin(evt) {
 		stopEvent(evt);
+
 		loginBackground.style.display = "none";
 	}
 
@@ -395,7 +445,7 @@
 				childStatus.innerHTML = "Nice!";
 			}
 			else if (childScore == 60) {
-				childStatus.innerHTML = "Careful";
+				childStatus.innerHTML = "Watch out!";
 			}
 			else if (childScore == 40) {
 				childStatus.innerHTML = "Uh oh...";
@@ -409,34 +459,35 @@
 		}
 	}
 
-	function addChildName(name,index) {
+	function addChildName(name,childIndex) {
 		var childBtn = document.createElement("button");
 		childBtn.className = "child-option";
 		childBtn.setAttribute("rel","js-child-option");
-		childBtn.setAttribute("data-index",String(index));
+		childBtn.setAttribute("data-index",String(childIndex));
 		childBtn.innerHTML = name;
 		childOptions.insertBefore(childBtn,childOptions.firstChild);
 	}
 
 	function childPressed(evt) {
 		stopEvent(evt);
+
 		var rel = evt.target.getAttribute("rel");
 
 		if (/\bjs-child-option\b/.test(rel)) {
-			var index = evt.target.getAttribute("data-index");
-			pickChild(index);
+			var childIndex = evt.target.getAttribute("data-index");
+			pickChild(childIndex);
 			closeChildPicker();
 			updateGoodness();
 		}
 	}
 
-	function pickChild(index) {
-		index = Number(index);
-		if (!(index >= 0 && index <= 3)) {
-			index = 0;
+	function pickChild(childIndex) {
+		childIndex = Number(childIndex);
+		if (!(childIndex >= 0 && childIndex <= 3)) {
+			childIndex = 0;
 		}
-		selectedChild.setAttribute("data-child",String(index));
-		childName.innerHTML = userData.children[index].name;
+		selectedChild.setAttribute("data-child",String(childIndex));
+		childName.innerHTML = userData.children[childIndex].name;
 	}
 
 	function newNameKeyPressed(evt) {
@@ -459,7 +510,7 @@
 			var name = newChild.children[0].value;
 			name = name.replace(/[^a-zA-Z0-9\s\.'"]+/,"").substr(0,20).toUpperCase();
 			if (name.length > 0) {
-				userData.children.push({ name: name, score: 100 });
+				userData.children.push({ name: name, score: 100, wishlist: [] });
 
 				// at limit of kids?
 				if (userData.children.length >= 4) {
@@ -470,6 +521,7 @@
 				pickChild(userData.children.length - 1);
 				setLocalData("children",userData.children);
 				updateGoodness();
+				wishlistBtn.style.display = "block";
 			}
 
 			closeChildPicker();
@@ -481,13 +533,18 @@
 
 	function nicePressed(evt) {
 		stopEvent(evt);
-		var index = Number(selectedChild.getAttribute("data-child"));
+
+		closeMenu();
+		closeChildPicker();
+		closeWishlist();
+
+		var childIndex = Number(selectedChild.getAttribute("data-child"));
 		if (
 			userData.children &&
-			userData.children[index] &&
-			userData.children[index].score < 100
+			userData.children[childIndex] &&
+			userData.children[childIndex].score < 100
 		) {
-			userData.children[index].score += 20;
+			userData.children[childIndex].score += 20;
 			setLocalData("children",userData.children);
 			updateGoodness();
 		}
@@ -495,13 +552,18 @@
 
 	function naughtyPressed(evt) {
 		stopEvent(evt);
-		var index = Number(selectedChild.getAttribute("data-child"));
+
+		closeMenu();
+		closeChildPicker();
+		closeWishlist();
+
+		var childIndex = Number(selectedChild.getAttribute("data-child"));
 		if (
 			userData.children &&
-			userData.children[index] &&
-			userData.children[index].score > 0
+			userData.children[childIndex] &&
+			userData.children[childIndex].score > 0
 		) {
-			userData.children[index].score -= 20;
+			userData.children[childIndex].score -= 20;
 			setLocalData("children",userData.children);
 			updateGoodness();
 		}
@@ -509,6 +571,11 @@
 
 	function meterDragStart(evt) {
 		stopEvent(evt);
+
+		closeMenu();
+		closeChildPicker();
+		closeWishlist();
+
 		meterRect = meter.getBoundingClientRect();
 		meterDragMove(evt);
 		meter.addEventListener("touchmove",meterDragMove,false);
@@ -520,6 +587,7 @@
 
 	function meterDragMove(evt) {
 		stopEvent(evt);
+
 		evt = normalizeClickTouchEvent(evt);
 		if (evt.clientY >= meterRect.top && evt.clientY <= meterRect.bottom) {
 			var percent = Math.max(
@@ -530,8 +598,8 @@
 				)
 			);
 
-			var index = Number(selectedChild.getAttribute("data-child"));
-			userData.children[index].score = percent;
+			var childIndex = Number(selectedChild.getAttribute("data-child"));
+			userData.children[childIndex].score = percent;
 			setLocalData("children",userData.children);
 			updateGoodness();
 		}
@@ -539,12 +607,141 @@
 
 	function meterDragEnd(evt) {
 		stopEvent(evt);
+
 		meter.removeEventListener("touchmove",meterDragMove,false);
 		meter.removeEventListener("mousemove",meterDragMove,false);
 		document.removeEventListener("touchcancel",meterDragEnd,false);
 		document.removeEventListener("touchend",meterDragEnd,false);
 		document.removeEventListener("mouseup",meterDragEnd,false);
 	}
+
+	function openWishlist(evt) {
+		stopEvent(evt);
+
+		closeMenu();
+		closeChildPicker();
+
+		if (wishlistModal.style.display != "block") {
+			var childIndex = Number(selectedChild.getAttribute("data-child"));
+			if (!userData.children[childIndex].wishlist) {
+				userData.children[childIndex].wishlist = [];
+			}
+
+			// filter wishlist items to avoid empty slots
+			userData.children[childIndex].wishlist =
+				userData.children[childIndex].wishlist.filter(function isNonEmpty(val){
+					return (val != "" && /[^\s]/.test(val));
+				});
+			setLocalData("children",userData.children);
+
+			wishlistModal.style.display = "block";
+			wishlistName.innerHTML = userData.children[childIndex].name;
+
+			// how many wishlist items are enabled (based on goodness)?
+			var numEnabled = 5;
+			if (userData.children[childIndex].score < 80) numEnabled = 4;
+			if (userData.children[childIndex].score < 60) numEnabled = 3;
+			if (userData.children[childIndex].score < 40) numEnabled = 2;
+			if (userData.children[childIndex].score < 20) numEnabled = 0;
+
+			// populate wishlist items and focus first empty entry
+			if (!wishlistItemsList[0].disabled) {
+				wishlistItemsList[0].focus();
+			}
+			for (var i = wishlistItemsList.length - 1; i >= 0; i--) {
+				if (i > (numEnabled - 1)) {
+					wishlistItemsList[i].disabled = true;
+				}
+				if (userData.children[childIndex].wishlist[i] != null) {
+					wishlistItemsList[i].value = userData.children[childIndex].wishlist[i];
+				}
+				else if (wishlistItemsList[i].disabled) {
+					wishlistItemsList[i].value = "|||||||||||||||||||||";
+				}
+				if (wishlistItemsList[i].value == "" && !wishlistItemsList.disabled) {
+					wishlistItemsList[i].focus();
+				}
+			}
+
+			document.addEventListener("click",closeWishlist,false);
+		}
+		else {
+			closeWishlist();
+		}
+	}
+
+	function updateWishlistData() {
+		var childIndex = Number(selectedChild.getAttribute("data-child"));
+
+		for (var i = 0; i < wishlistItemsList.length; i++) {
+			if (!wishlistItemsList[i].disabled) {
+				wishlistItemsList[i].value = wishlistItemsList[i].value
+					.replace(/^\s+/,"")
+					.replace(/\s+$/,"")
+					.substr(0,30);
+				userData.children[childIndex].wishlist[i] = wishlistItemsList[i].value.toUpperCase();
+			}
+		}
+
+		setLocalData("children",userData.children);
+	}
+
+	function closeWishlist(evt) {
+		stopEvent(evt);
+
+		if (wishlistModal.style.display == "block") {
+			var childIndex = Number(selectedChild.getAttribute("data-child"));
+			wishlistModal.style.display = "none";
+			wishlistName.innerHTML = "";
+			updateWishlistData();
+
+			// filter wishlist items to avoid empty slots
+			userData.children[childIndex].wishlist =
+				userData.children[childIndex].wishlist.filter(function isNonEmpty(val){
+					return (val != "" && /[^\s]/.test(val));
+				});
+			setLocalData("children",userData.children);
+
+			// empty wishlist items
+			for (var i = 0; i < wishlistItemsList.length; i++) {
+				wishlistItemsList[i].disabled = false;
+				wishlistItemsList[i].value = "";
+				wishlistItemsList[i].className = "";
+			}
+
+			document.removeEventListener("click",closeWishlist,false);
+		}
+	}
+
+	function deactivateWishlistItems() {
+		for (var i = 0; i < wishlistItemsList.length; i++) {
+			wishlistItemsList[i].className = "";
+		}
+	}
+
+	function activateWishlistItem(evt) {
+		deactivateWishlistItems();
+		evt.target.className = "active";
+	}
+
+	function wishlistKeyPressed(evt) {
+		// enter pressed?
+		if (evt.charCode == 13) {
+			stopEvent(evt);
+			updateWishlistData();
+
+			// move focus to next list item
+			var index = Number(evt.target.parentNode.getAttribute("rel").match(/(\d)$/)[1]) - 1;
+			for (var i = 0; i < wishlistItemsList.length; i++) {
+				index = (index + 1) % 5;
+				if (!wishlistItemsList[index].disabled) {
+					wishlistItemsList[index].focus();
+					break;
+				}
+			}
+		}
+	}
+
 
 	// **********************
 
