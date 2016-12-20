@@ -1,6 +1,6 @@
 # Santa Connect (app)
 
-<a href="https://getify.github.io/santa-connect-app"><img src="app-icons/santa-150x150.png" alt="Santa!" align="left" hspace="10" border="0"></a>
+<a href="https://getify.github.io/santa-connect-app"><img src="app-icons/android-chrome-192x192.png" width="150" alt="Santa!" hspace="20" align="left" border="0"></a>
 
 Santa Connect is a mobile app you can use with your Santa-age kids to remind them that being nice is better than being naughty, especially as we draw near to the big day. It's designed for use on phones and tablets, in portrait mode.
 
