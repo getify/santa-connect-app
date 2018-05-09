@@ -2,7 +2,7 @@
 	"short_name": "Santa Connect",
 	"name": "Santa Connect",
 	"start_url": "/santa-connect-app/index.html",
-	"display": "fullscreen",
+	"display": "standalone",
 	"orientation": "portrait",
 	"background_color": "#3c8d0d",
 	"theme_color": "#3c8d0d",
